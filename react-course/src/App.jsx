@@ -6,6 +6,10 @@ import './assets/scss/styles.scss';
 
 const App = () => {
 
+  //Redux
+
+  //Not Redux
+
   const [showAddTask, setShowAddTask] = useState(false);
 
   const [tasks, setTasks] = useState([]); 
@@ -16,7 +20,6 @@ const App = () => {
       setTasks(tasksFromServer);
     }
     
-    
   getTasks();
     
   }, []);
@@ -26,7 +29,7 @@ const App = () => {
     const res = await fetch("http://localhost:5000/tasks")
     const data = await res.json();
 
-    console.log(data);
+    //console.log(data)
   
     return data;
   }

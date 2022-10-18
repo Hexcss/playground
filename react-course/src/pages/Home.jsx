@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Tasks, AddTask, Footer } from "../components/index";
 
-const Home = ({ showAddTask, tasks, addTask, deleteTask, toggleReminder }) => {
+const Home = ({ showAddTask, addTask, deleteTask, toggleReminder }) => {
+
+  const tasks = useSelector((state) => state.tasks);
+
+  console.log(tasks);
+
   return (
     <div>
         {showAddTask && <AddTask onAdd={addTask} />}
