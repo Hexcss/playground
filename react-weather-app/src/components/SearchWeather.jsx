@@ -11,19 +11,21 @@ const SearchWeather = () => {
     let componentMounted = true;
 
     useEffect(() => {
-
         const fetchWeather = async () => {
-            const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=London&appid=880decd5665cf206ffc8c615942b6407`);
-            if(componentMounted) {
-                setData(await res.json());
-            }
-            return () => {
-              componentMounted = false;
-            };
+          const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=London&appid=fdbe408c6ccd5ab984e9bd57361fadb6`);
+          if(componentMounted) {
+            setData(await res.json());
+            console.log("Res:", await res.json());
+          }
+          return () => {
+            componentMounted = false;
+          };
         }
-
       fetchWeather();
     }, [])
+
+    console.log("Data.main:", data.main);
+    //console.log("data.main.temp:", data.main.temp); Explota
     
   return (
     <div>
@@ -34,11 +36,11 @@ const SearchWeather = () => {
               <img
                 src="https://source.unsplash.com/600x750/?nature,water"
                 className="card-img"
-                alt="..."
+                alt="Weather Image"
               />
               <div className="card-img-overlay">
                 <Input />
-                <DataDisplayer data={data} />
+                <DataDisplayer data={data}/>
               </div>
             </div>
           </div>
