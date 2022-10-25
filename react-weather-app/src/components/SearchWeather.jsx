@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import Input from "./Input";
+import DataDisplayer from "./DataDisplayer";
+
 const SearchWeather = () => {
     const [search, setSearch] = useState("london");
     const [data, setData] = useState([]);
@@ -15,14 +18,12 @@ const SearchWeather = () => {
                 setData(await res.json());
             }
             return () => {
-                componentMounted = false;
+              componentMounted = false;
             };
         }
 
       fetchWeather();
     }, [])
-
-    console.log(data.main.temp)
     
   return (
     <div>
@@ -36,33 +37,8 @@ const SearchWeather = () => {
                 alt="..."
               />
               <div className="card-img-overlay">
-                <form action="">
-                  <div className="input-group mb-4 w-75 mx-auto">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Search City"
-                      aria-label="Search City"
-                      aria-describedby="basic-addon2"
-                    />
-                    <button type="submit" className="input-group-text" id="basic-addon2">
-                      <i className="fas fa-search" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </form>
-                <div className="bg-dark bg-opacity-50 py-3">     
-                    <h2 className="card-title">{data.name}</h2>
-                    <p className="card-text lead">
-                        Monday, October 24, 2022
-                    </p>
-                    <hr />
-                    <i className="fas fa-cloud fa-4x"></i>
-                    <h1 className="fw-bolder mb-5">
-                        {data.name} &deg;C
-                    </h1>
-                    <p className="lead fw-bolder mb-0">Cloud</p>
-                    <p className="lead">{data.temp} &deg;C | 35.01 &deg;C</p>
-                </div>
+                <Input />
+                <DataDisplayer data={data} />
               </div>
             </div>
           </div>
