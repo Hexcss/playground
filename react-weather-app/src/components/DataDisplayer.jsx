@@ -8,7 +8,7 @@ const DataDisplayer = ({ data }) => {
       <p className="card-text lead">Monday, October 24, 2022</p>
       <hr />
       <i className="fas fa-cloud fa-4x"></i>
-      <h1 className="fw-bolder mb-5">{data.cod} &deg;C</h1>
+      <h1 className="fw-bolder mb-5">{data.main_temp} &deg;C</h1>
       <p className="lead fw-bolder mb-0">Cloud</p>
       <p className="lead">{data.cod} &deg;C | 35.01 &deg;C</p>
     </div>

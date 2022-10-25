@@ -1,0 +1,28 @@
+What is Docker? Building, running and shipping apps.
+
+Container: Isolated Environment
+
+Remove Unused Apps and Dependencies
+
+Virtual Machine vs Containers
+
+C: An isolated environment for running an application
+VM: Abstraction of a machine using HyperVisors
+
+Docker has a client component that uses a Rest API that connects to the Docker Engine
+
+Kernel: Core of an OS, manages all apps and hardware resources
+
+Commands:
+
+apt update
+apt install {package name} //nano, less
+
+echo
+mkdir
+cd
+ls
+rm
+mv
+
+ls bin //shows commands

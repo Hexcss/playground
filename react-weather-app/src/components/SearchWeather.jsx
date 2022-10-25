@@ -15,7 +15,6 @@ const SearchWeather = () => {
           const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=London&appid=fdbe408c6ccd5ab984e9bd57361fadb6`);
           if(componentMounted) {
             setData(await res.json());
-            console.log("Res:", await res.json());
           }
           return () => {
             componentMounted = false;
@@ -24,8 +23,8 @@ const SearchWeather = () => {
       fetchWeather();
     }, [])
 
-    console.log("Data.main:", data.main);
-    //console.log("data.main.temp:", data.main.temp); Explota
+    console.log("data.main:", data.main);
+    //console.log("data.main.temp:", data.main.temp); 
     
   return (
     <div>
