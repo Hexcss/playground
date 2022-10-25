@@ -1,27 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Button from "./Button";
+import { actions } from "../store/index";
 
 const Calculator = () => {
 
-  const [value, setValue] = useState("");
+  const value = useSelector((state) => state.calculator);
+  const dispatch = useDispatch();
 
-  const backspace = () => {
-    try {
-      setValue(value.slice(0, -1));
-    } catch (err) {
-      setValue("");
-    }
-  }
-
-  const calculate = () => {
-    try {
-      setValue(eval(value));
-    } catch (err) {
-      //Evaluate function doesn't work with numbers starting on 0
-      setValue("Error");
-    }
-  }
+  const { type, backspace, calculate } = bindActionCreators(actions, dispatch);
 
   return (
     <div>
@@ -38,30 +27,26 @@ const Calculator = () => {
           <div className="col-md-4">
             <div className="card border-primary mb-3 pt-3 shadow">
               <div className="card-body text-primary">
-                <input type="text" className="form-control form-control-lg mb-4 text-center bg-light fs-4 text-primary shadow" value={value} onChange={(e) => setValue(e.target.value)}/>
+                <input type="text" className="form-control form-control-lg mb-4 text-center bg-light fs-4 text-primary shadow" value={value} onChange={(e) => type(e.target.value)}/>
                 <div className="row mt-2">
-                  <Button buttonValue="1" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="2" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="3" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="C" onClick={() => backspace()}/>              
+                  {["1", "2", "3", "C"].map((char, index) => (
+                    <Button key={index} buttonValue={char} onClick={(e) => char==="C" ? backspace() : type(e.target.value)}/>
+                  ))}            
                 </div>
                 <div className="row mt-2">
-                  <Button buttonValue="4" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="5" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="6" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="+" onClick={(e) => setValue(value + e.target.value)}/>
+                  {["4", "5", "6", "+"].map((char, index) => (
+                    <Button key={index} buttonValue={char} onClick={(e) => type(e.target.value)}/>
+                  ))}
                 </div>
                 <div className="row mt-2">
-                  <Button buttonValue="7" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="8" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="9" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="*" onClick={(e) => setValue(value + e.target.value)}/>
+                  {["7", "8", "9", "*"].map((char, index) => (
+                    <Button key={index} buttonValue={char} onClick={(e) => type(e.target.value)}/>
+                  ))}
                 </div>
                 <div className="row mt-2">
-                  <Button buttonValue="." onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="0" onClick={(e) => setValue(value + e.target.value)}/>
-                  <Button buttonValue="=" onClick={() => calculate()}/>
-                  <Button buttonValue="/" onClick={(e) => setValue(value + e.target.value)}/>
+                  {[".", "0", "/", "="].map((char, index) => (
+                    <Button key={index} buttonValue={char} onClick={(e) => char === "=" ? calculate() : type(e.target.value)}/>
+                  ))}
                 </div>
               </div>
             </div>
