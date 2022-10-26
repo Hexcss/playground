@@ -1,0 +1,11 @@
+What is git? Version control system for tracking changes in computer files.
+
+-Helps for working in large groups and coordinate work. Tracks who made changes and allows to revert back at any time.
+
+-git init: initialize local git repository.
+-git add (file): Add Files to index.
+-git status: Check Status of Working tree.
+-git commit: Commit the changes to index.
+-git push: Push to remote repository.
+-git pull: Pull latest from remote repository.
+-git clone: Clone Repository to a new Repository.

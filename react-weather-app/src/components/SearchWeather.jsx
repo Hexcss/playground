@@ -5,27 +5,22 @@ import DataDisplayer from "./DataDisplayer";
 
 const SearchWeather = () => {
     const [search, setSearch] = useState("london");
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
     const [input, setInput] = useState("");
 
     let componentMounted = true;
 
     useEffect(() => {
-        const fetchWeather = async () => {
-          const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=London&appid=fdbe408c6ccd5ab984e9bd57361fadb6`);
-          if(componentMounted) {
-            setData(await res.json());
-          }
-          return () => {
-            componentMounted = false;
-          };
+      const fetchWeather = async () => {
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=fdbe408c6ccd5ab984e9bd57361fadb6`);
+        if(componentMounted) {
+          setData(await res.json());
         }
+        componentMounted = false;
+      }
       fetchWeather();
     }, [])
 
-    console.log("data.main:", data.main);
-    //console.log("data.main.temp:", data.main.temp); 
-    
   return (
     <div>
       <div className="container mt-5">
