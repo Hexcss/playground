@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Input from "./Input";
 import DataDisplayer from "./DataDisplayer";
+import { actions } from "../store/index";
 
 const SearchWeather = () => {
     const [search, setSearch] = useState("Santander");
     const [data, setData] = useState([]);
+
+    const newData = useSelector((state) => state.data);
+    const dispatch = useDispatch();
+    const { fetchData } = bindActionCreators(actions, dispatch);
+
+    useEffect(() => {
+      fetchData(search);
+    }, [search])
+
+    console.log(newData);
 
     let componentMounted = true;
 
