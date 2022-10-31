@@ -1,5 +1,4 @@
 import sys, pygame, pymunk, pymunk.pygame_util, math
-from pyautogui import press
 
 pygame.init()
 

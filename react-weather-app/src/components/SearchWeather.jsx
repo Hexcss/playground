@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import axios from "axios";
 
 import Input from "./Input";
 import DataDisplayer from "./DataDisplayer";
@@ -9,12 +8,18 @@ import { actions } from "../store/index";
 
 const SearchWeather = () => {
     const [search, setSearch] = useState("Santander");
-    const [data, setData] = useState([]);
+
+    const weatherData = useSelector((state) => state.data);
+    const dispatch = useDispatch();
+    const { fetchData } = bindActionCreators(actions, dispatch);
 
     useEffect(() => {
-      axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=fdbe408c6ccd5ab984e9bd57361fadb6`).then(res => setData(res.data)).catch(err => console.error(err));
+      fetchData(search);
+      //axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=fdbe408c6ccd5ab984e9bd57361fadb6`).then(res => setData(res.data)).catch(err => console.error(err));
     }, [search])
     
+console.log(weatherData);
+
   return (
     <div>
       <div className="container mt-5">
@@ -28,7 +33,7 @@ const SearchWeather = () => {
               />
               <div className="card-img-overlay">
                 <Input setSearch={setSearch}/>
-                <DataDisplayer data={data}/>
+                <DataDisplayer data={weatherData}/>
               </div>
             </div>
           </div>
