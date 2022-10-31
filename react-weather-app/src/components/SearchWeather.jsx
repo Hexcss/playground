@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import axios from "axios";
 
 import Input from "./Input";
 import DataDisplayer from "./DataDisplayer";
@@ -10,27 +11,8 @@ const SearchWeather = () => {
     const [search, setSearch] = useState("Santander");
     const [data, setData] = useState([]);
 
-    const newData = useSelector((state) => state.data);
-    const dispatch = useDispatch();
-    const { fetchData } = bindActionCreators(actions, dispatch);
-
     useEffect(() => {
-      fetchData(search);
-    }, [search])
-
-    console.log(newData);
-
-    let componentMounted = true;
-
-    useEffect(() => {
-        const fetchWeather = async () => {
-          const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=fdbe408c6ccd5ab984e9bd57361fadb6`);
-          if(componentMounted) {
-            setData(await res.json());
-          }
-            componentMounted = false;
-        }
-      fetchWeather();
+      axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=fdbe408c6ccd5ab984e9bd57361fadb6`).then(res => setData(res.data)).catch(err => console.error(err));
     }, [search])
     
   return (
