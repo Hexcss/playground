@@ -9,3 +9,12 @@ export const fetchData = (search) => {
         })
     }
 }
+
+export const search = (city) => {
+    return (dispatch) => {
+        dispatch({ 
+            type: "search", 
+            payload: city,
+        })
+    }
+}

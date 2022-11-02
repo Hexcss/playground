@@ -1,13 +1,19 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from 'redux';
 
-const Input = ({ setSearch }) => {
+import { actions } from "../store/index";
+
+const Input = () => {
+
+  const dispatch = useDispatch();
+  const { search } = bindActionCreators(actions, dispatch);
 
   const [input, setInput] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearch(input);
-
+    search(input);
   }
 
   return (
