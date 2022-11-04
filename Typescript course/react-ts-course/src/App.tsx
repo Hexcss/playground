@@ -3,23 +3,16 @@ import './App.css';
 
 function App() {
 
-  const [people, setPeople] = useState([
-    {
-      name: "Lebron James",
-      url: "",
-      age: 36,
-      note: "Allergic to peanut",
-    },
-    {
-      name: "Kobe Bryant",
-      url: "",
-      age: 26,
-    },
-]);
+  interface IState {
+    people: {
+      name: string,
+      age: number,
+      url: string,
+      note?: string,
+    }[]
+  }
 
-  people.map(person => {
-    person.name = "Javier"
-  })
+  const [people, setPeople] = useState<IState["people"]>([]);
 
   return (
     <div className="App">
