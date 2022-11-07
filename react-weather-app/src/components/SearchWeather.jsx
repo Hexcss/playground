@@ -1,26 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Input from "./Input";
 import DataDisplayer from "./DataDisplayer";
 
 const SearchWeather = () => {
-    const [search, setSearch] = useState("london");
-    const [data, setData] = useState({});
-    const [input, setInput] = useState("");
-
-    let componentMounted = true;
-
-    useEffect(() => {
-      const fetchWeather = async () => {
-        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=fdbe408c6ccd5ab984e9bd57361fadb6`);
-        if(componentMounted) {
-          setData(await res.json());
-        }
-        componentMounted = false;
-      }
-      fetchWeather();
-    }, [])
-
   return (
     <div>
       <div className="container mt-5">
@@ -28,13 +11,13 @@ const SearchWeather = () => {
           <div className="col-md-4">
             <div className="card text-white text-center border-0">
               <img
-                src="https://source.unsplash.com/600x750/?nature,water"
+                src={`https://source.unsplash.com/600x750/?nature,clouds`}
                 className="card-img"
-                alt="Weather Image"
+                alt="Background"
               />
               <div className="card-img-overlay">
-                <Input />
-                <DataDisplayer data={data}/>
+                <Input/>
+                <DataDisplayer/>
               </div>
             </div>
           </div>
