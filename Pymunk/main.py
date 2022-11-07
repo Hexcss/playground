@@ -15,6 +15,88 @@ def draw(screen, space, draw_options, line):
     space.debug_draw(draw_options)
     
     pygame.display.update()
+    
+def create_pendulum(space):
+    rotation_center_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+    rotation_center_body.position = (400, 300) #pos
+    
+    body = pymunk.Body()
+    body.position = (400, 300)
+    line = pymunk.Segment(body, (0, 0), (255, 0), 5)
+    circle = pymunk.Circle(body, 40, (255, 0))
+    line.friction = 1
+    circle.friction = 1
+    line.mass = 8
+    circle.mass = 30
+    circle.elasticity= 0.95
+    rotation_center_joint = pymunk.PinJoint(body, rotation_center_body, (0, 0))
+    space.add(circle, line, body, rotation_center_joint)
+    
+def create_pendulum_2(space):
+    rotation_center_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+    rotation_center_body.position = (600, 300) #pos
+    
+    body = pymunk.Body()
+    body.position = (600, 300)
+    line = pymunk.Segment(body, (0, 0), (255, 0), 5)
+    circle = pymunk.Circle(body, 40, (255, 0))
+    line.friction = 1
+    circle.friction = 1
+    line.mass = 8
+    circle.mass = 30
+    circle.elasticity= 0.95
+    rotation_center_joint = pymunk.PinJoint(body, rotation_center_body, (0, 0))
+    space.add(circle, line, body, rotation_center_joint)
+    
+def create_pendulum_3(space):
+    rotation_center_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+    rotation_center_body.position = (500, 300) #pos
+    
+    body = pymunk.Body()
+    body.position = (500, 300)
+    line = pymunk.Segment(body, (0, 0), (255, 0), 5)
+    circle = pymunk.Circle(body, 40, (255, 0))
+    line.friction = 1
+    circle.friction = 1
+    line.mass = 8
+    circle.mass = 30
+    circle.elasticity= 0.95
+    rotation_center_joint = pymunk.PinJoint(body, rotation_center_body, (0, 0))
+    space.add(circle, line, body, rotation_center_joint)
+    
+def create_pendulum_4(space):
+    rotation_center_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+    rotation_center_body.position = (450, 300) #pos
+    
+    body = pymunk.Body()
+    body.position = (450, 300)
+    line = pymunk.Segment(body, (0, 0), (255, 0), 5)
+    circle = pymunk.Circle(body, 40, (255, 0))
+    line.friction = 1
+    circle.friction = 1
+    line.mass = 8
+    circle.mass = 30
+    circle.elasticity= 0.95
+    rotation_center_joint = pymunk.PinJoint(body, rotation_center_body, (0, 0))
+    space.add(circle, line, body, rotation_center_joint)
+    
+def create_pendulum_5(space):
+    rotation_center_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+    rotation_center_body.position = (550, 300) #pos
+    
+    body = pymunk.Body()
+    body.position = (550, 300)
+    line = pymunk.Segment(body, (0, 0), (255, 0), 5)
+    circle = pymunk.Circle(body, 40, (255, 0))
+    line.friction = 1
+    circle.friction = 1
+    line.mass = 8
+    circle.mass = 30
+    circle.elasticity= 0.95
+    rotation_center_joint = pymunk.PinJoint(body, rotation_center_body, (0, 0))
+    space.add(circle, line, body, rotation_center_joint)
+    
+
 
 def create_ball(space, radius, mass, pos):
     body = pymunk.Body(body_type=pymunk.Body.STATIC) #Initialize body
@@ -26,6 +108,24 @@ def create_ball(space, radius, mass, pos):
     shape.color = (255, 0, 0, 100) #RGBA
     space.add(body, shape) #Add to space
     return shape
+
+def create_structure(space, width, height):
+    BROWN = (139, 69, 19, 100)
+    rects = [
+        [(600, height - 120), (40, 200), BROWN, 100],
+        [(900, height - 120), (40, 200), BROWN, 100],
+        [(750, height - 240), (340, 40), BROWN, 150],
+    ]
+    
+    for pos, size, color, mass in rects:
+        body = pymunk.Body()
+        body.position = pos
+        shape = pymunk.Poly.create_box(body, size, radius=1)
+        shape.color = color
+        shape.mass = mass
+        shape.elasticity = 0.4
+        shape.friction = 0.4
+        space.add(body, shape)
 
 def create_boundries(space, width, height):
     #Center of the rectangle, width and height of the rectangle
@@ -60,6 +160,12 @@ def run(screen, width, height):
     space.gravity = (0, 981) #gravity = 9.81, for this simulation we will multiply it by a factor of 100 as 9.81 would be too slow. In Pygame the lower you go the more y increases, therefore gravity must be positive instead of negative
      
     create_boundries(space, width, height)
+    #create_structure(space, width, height)
+    create_pendulum(space)
+    create_pendulum_2(space)
+    create_pendulum_3(space)
+    create_pendulum_4(space)
+    create_pendulum_5(space)
     
     pressed_pos = None
     ball = None
