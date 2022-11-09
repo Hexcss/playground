@@ -51,6 +51,9 @@ const DataDisplayer = () => {
     return <div>Loading...</div>;
   }
 
+  console.log(data);
+
+
   return (
     <div className="bg-dark bg-opacity-50 py-3">
       <h2 className="card-title">{weatherData.name}</h2>

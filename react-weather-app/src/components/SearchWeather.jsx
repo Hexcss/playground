@@ -4,7 +4,6 @@ import Input from "./Input";
 import DataDisplayer from "./DataDisplayer";
 
 const SearchWeather = () => {
-
   return (
     <div>
       <div className="container mt-5">
