@@ -1,10 +1,5 @@
 import { ActionType } from "../action-types/index";
 
-interface FetchDataAction {
-  type: ActionType.FETCHDATA;
-  payload: object;
-}
-
 interface SearchAction {
   type: ActionType.SEARCH;
   payload: string;
@@ -53,6 +48,11 @@ export interface WeatherData {
   id?: number;
   name: string;
   cod?: number;
+}
+
+interface FetchDataAction {
+  type: ActionType.FETCHDATA;
+  payload: WeatherData;
 }
 
 export type Action = FetchDataAction | SearchAction;
