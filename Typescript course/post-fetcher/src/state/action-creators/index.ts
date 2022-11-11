@@ -1,6 +1,4 @@
 import { IPost } from "./../actions/index";
-import { State } from "./../reducers/index";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { Dispatch } from "redux";
 

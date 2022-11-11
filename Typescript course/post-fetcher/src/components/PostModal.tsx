@@ -3,15 +3,23 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state";
 
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Collapse from '@mui/material/Collapse';
+
 import { IPost } from "../state/actions";
+import { AlertSuccess } from "./index";
 
 interface IProps {
   triggered: boolean;
 }
 
 const PostModal: React.FC<IProps> = ({ triggered }) => {
+  const [success, setSuccess] = useState<boolean>(false);
   const [newPostData, setNewPostData] = useState<IPost>({
-    id: Math.round(Math.random()*100),
+    id: Math.round(Math.random() * 100),
     title: "",
     body: "",
   });
@@ -23,40 +31,32 @@ const PostModal: React.FC<IProps> = ({ triggered }) => {
     setNewPostData((state) => ({ ...state, [key]: value }))
   }
 
-  return triggered ? (
-    <form className="mb-5" onSubmit={(e) => {
+  return (
+    <Collapse in={triggered}>
+      <Box sx={{ mb: 3 }} component="form" onSubmit={(e) => {
         e.preventDefault();
         addPost(newPostData)
-    }}>
-      <div className="form-group mb-3">
-        <label htmlFor="postTitle">Post Title</label>
-        <input
-          type="text"
-          className="form-control"
-          id="postTitle"
-          placeholder="Enter your post's title"
-          value={newPostData.title}
-          name="title"
-          onChange={(e) =>
+        setSuccess(true);
+        setNewPostData({
+          title: "",
+          body: "",
+        });
+      }}>
+        <AlertSuccess success={success} setSuccess={setSuccess} />
+        <Stack direction="column" spacing={2}>
+          <TextField required label="Post Title" variant="filled" fullWidth value={newPostData.title} name="title" onChange={(e) =>
             handleChange(e.target.name, e.target.value)
-          }
-        />
-      </div>
-      <div className="form-group mb-3">
-        <label htmlFor="postBody">Post Body</label>
-        <textarea className="form-control" id="postBody" rows={3} value={newPostData.body} name="body" onChange={(e) =>
-            handleChange(e.target.name, e.target.value)}></textarea>
-      </div>
-      <div className="form-group mb-3">
-        <button type="submit" className="btn btn-success">
-          Submit
-        </button>
-      </div>
-      <hr />
-    </form>
-  ) : (
-    <></>
-  );
+          } />
+          <TextField required label="Post Body" variant="filled" fullWidth multiline rows={3} maxRows={4} value={newPostData.body} name="body" onChange={(e) =>
+            handleChange(e.target.name, e.target.value)
+          } />
+          <Button type="submit" variant="contained" color="success">
+            Submit
+          </Button>
+        </Stack>
+      </Box>
+    </Collapse>
+  )
 };
 
 export default PostModal;
