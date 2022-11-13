@@ -16,8 +16,12 @@ const DataReducer = (state: PostState = initialState, action: Action) => {
             return [...action.payload];
         case ActionType.DELETE:
             return [...action.payload];
+        case ActionType.DELETE_LAST:
+            return [...action.payload];
         case ActionType.POST:
-            return [...action.payload];    
+            return [...action.payload];
+        case ActionType.EDIT_POST:
+            return [...action.payload];
         default:
             return state;
     }

@@ -1,16 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators, State } from "../state";
+
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface IProps {
-    success: boolean;
-    setSuccess: React.Dispatch<React.SetStateAction<boolean>>
-}
+const AlertSuccess: React.FC= () => {
 
-const AlertSuccess: React.FC<IProps> = ({ success, setSuccess }) => {
+  const isAlertOpen = useSelector((state: State) => state.isAlertOpen);
+  const dispatch = useDispatch();
+  const { openAlert } = bindActionCreators(actionCreators, dispatch);
+
   return (
-    <Collapse in={success}>
+    <Collapse in={isAlertOpen}>
         <Alert
           action={
             <IconButton
@@ -18,7 +22,7 @@ const AlertSuccess: React.FC<IProps> = ({ success, setSuccess }) => {
               color="inherit"
               size="small"
               onClick={() => {
-                setSuccess(false);
+                openAlert(false);
               }}
             >
               <CloseIcon fontSize="inherit" />

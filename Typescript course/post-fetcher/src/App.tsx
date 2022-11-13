@@ -12,14 +12,15 @@ import Stack from '@mui/material/Stack';
 
 import { actionCreators, State } from "./state";
 import { PostState } from "./state/actions";
-import { Post, PostModal, NavBar } from "./components";
+import { Post, PostModal, NavBar, SideBar, FormPopup, Snackbar } from "./components";
 
-const App = () => {
-  const [triggered, setTriggered] = useState<boolean>(false);
+const App: React.FC = () => {
 
   const posts: PostState = useSelector((state: State) => state.data);
+  const isFormOpen = useSelector((state: State) => state.isFormOpen);
+  const isAlertOpen = useSelector((state: State) => state.isAlertOpen);
   const dispatch = useDispatch();
-  const { fetchData } = bindActionCreators(actionCreators, dispatch);
+  const { fetchData, openForm, openAlert } = bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     fetchData();
@@ -27,10 +28,10 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <Box sx={{ position: "sticky"}}>
-       <NavBar />
-      </Box>
+      <NavBar />
+      <SideBar />
       <Container maxWidth="md">
+        <FormPopup/>
         <Box sx={{ m: 3 }} display="flex" justifyContent="center" alignItems="center">
           <Stack spacing={2}>
             <Typography component="h1" variant="h2" fontWeight="bold">
@@ -38,13 +39,18 @@ const App = () => {
             </Typography>
             <Button
               variant="outlined"
-              onClick={() => setTriggered(!triggered)}
+              onClick={() => {
+                openForm(!isFormOpen)
+                if (isAlertOpen) {
+                  openAlert(false);
+                }
+              }}
             >
-              {triggered ? "Close Form" : "New Post"}
+              {isFormOpen ? "Close Form" : "New Post"}
             </Button>
           </Stack>
         </Box>
-        <PostModal triggered={triggered} />
+        <PostModal />
         <Box sx={{ mb: 3 }}>
         <Grid container spacing={2}>
           {posts.map((post) => (
@@ -56,6 +62,7 @@ const App = () => {
         </Grid>
         </Box>
       </Container>
+      <Snackbar />
     </React.Fragment>
   );
 };
