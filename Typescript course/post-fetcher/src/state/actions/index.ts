@@ -9,19 +9,14 @@ export interface IPost {
 
 export type PostState = IPost[]
 
-interface FetchDataAction {
-    type: ActionType.FETCHDATA;
-    payload: PostState;
-}
-
 interface PostAction {
-    type: ActionType.POST;
+    type: ActionType.FETCHDATA | ActionType.POST | ActionType.EDIT_POST | ActionType.DELETE | ActionType.DELETE_LAST;
     payload: PostState;
 }
 
-interface DeleteAction {
-    type: ActionType.DELETE;
-    payload: PostState;
+interface OpenAction {
+    type: ActionType.OPEN_FORM | ActionType.OPEN_SIDEBAR | ActionType.OPEN_POPUP | ActionType.OPEN_SNACKBAR | ActionType.OPEN_ALERT | ActionType.OPEN_EDIT_POPUP;
+    payload: boolean;
 }
 
-export type Action = FetchDataAction | DeleteAction | PostAction;
+export type Action = PostAction | OpenAction;
